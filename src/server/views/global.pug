@@ -1,0 +1,24 @@
+include ./mixins/headMetatags
+include ./mixins/navbar
+include ./mixins/navScroller
+include ./mixins/addGlobalScripts
+
+doctype html
+html(lang='ru')
+    head
+        +headMetatags()
+        block head
+    body(class=bodyClasses)
+        input(type='hidden', class='csrf-token', value='1111')
+        +navbar(user)
+        +navScroller()
+        .alert.alert-info.alert-dismissable
+            a.panel-close.close(data-dismiss='alert') ×
+            i.fa.fa-coffee
+            |           This is an
+            strong .alert
+            | . Use this to show important messages to the user.
+        block content
+
+        +addGlobalScripts()
+        block footer

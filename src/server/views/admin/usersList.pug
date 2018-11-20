@@ -1,0 +1,19 @@
+extends ../global
+block head
+
+block content
+    .container.pt2
+        h1 User list
+        if (entities.length > 0)
+            each user in entities
+                .row
+                    .col-md-3= user.username
+                    .col-md-3= user.email
+                    .col-md-3= user._id
+                    .col-md-3= user.uuid
+                    .col-md-3
+                        a.btn.btn-success(href='/admin/users/edit/'+user._id) Edit
+                        a.btn.btn-danger(href='/admin/users/delete/'+user._id) Remove
+        else
+            div There no more users
+block footer

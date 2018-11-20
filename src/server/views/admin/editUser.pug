@@ -1,0 +1,66 @@
+extends ../global
+block head
+
+block content
+    .container.pt2
+        .container
+            h1 Edit Profile
+            hr
+            .row
+                // left column
+                .col-md-3
+                    .text-center
+                        img.avatar.img-circle(src='//placehold.it/100', alt='avatar')
+                        h6 Upload a different photo...
+                        input.form-control(type='file')
+                // edit form column
+                .col-md-9.personal-info
+                    h3 Required info
+                    form.form-horizontal(role='form', method='POST', action='/admin/user/edit')
+                        .form-group
+                            label.col-lg-3.control-label _id:
+                            .col-lg-8
+                                input.form-control(type='text', value=user._id, disabled="true")
+                        .form-group
+                            label.col-lg-3.control-label Email:
+                            .col-lg-8
+                                input.form-control(type='text', value=user.email)
+                        .form-group
+                            label.col-md-3.control-label Username:
+                            .col-md-8
+                                input.form-control(type='text', value=user.username)
+                        .form-group
+                            label.col-md-3.control-label New password:
+                            .col-md-8
+                                input.form-control(type='password', value=user.password)
+                        .form-group
+                            label.col-md-3.control-label Confirm password:
+                            .col-md-8
+                                input.form-control(type='password', value=user.password2)
+                    h3 Personal info
+                    form.form-horizontal(role='form')
+                        .form-group
+                            label.col-lg-3.control-label First name:
+                            .col-lg-8
+                                input.form-control(type='text', value='Jane')
+                        .form-group
+                            label.col-lg-3.control-label Last name:
+                            .col-lg-8
+                                input.form-control(type='text', value='Bishop')
+                        .form-group
+                            label.col-lg-3.control-label Company:
+                            .col-lg-8
+                                input.form-control(type='text', value='')
+                        .form-group
+                            label.col-lg-3.control-label Website:
+                            .col-lg-8
+                                input.form-control(type='text', value='')
+                        .form-group
+                            label.col-md-3.control-label
+                            .col-md-8
+                                input.btn.btn-primary(type='button', value='Save Changes')
+                                span
+                                input.btn.btn-default(type='reset', value='Cancel')
+        hr
+
+block footer

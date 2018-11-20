@@ -1,0 +1,11 @@
+extends ../global
+block head
+
+block content
+    .container.pt2
+        h1 Delete user
+        hr
+        form(method='POST', action='/admin/users/delete/'+user._id)
+            button Delete
+
+block footer
