@@ -1,10 +1,10 @@
 const path = require('path');
 
 const usersApiHost = 'https://vast-brook-68803.herokuapp.com';
-// const usersApiHost = 'https://vast-brook-68803.herokuapp.com';
+// const usersApiHost = 'http://localhost:3000';
 
-const staticPath = path.join(__dirname,'..','public'); //@todo move to config file
-const viewsPath = path.join(__dirname,'..','src','server','views'); //@todo move to config file
+const staticPath = path.join(__dirname,'..','public');
+const viewsPath = path.join(__dirname,'..','src','server','views');
 
 console.log(staticPath);
 console.log(viewsPath);
@@ -30,6 +30,15 @@ const config  = {
                 update: usersApiHost + '/api/v1/users/{{userId}}',
                 delete: usersApiHost + '/api/v1/users/{{userId}}',
                 get: usersApiHost + '/api/v1/users/{{userId}}',
+            }
+        },
+        auth: {
+            google: {
+                clientId: '',
+                clientSecretId: '',
+                callback: '',
+                fail: '',
+                success: ''
             }
         }
     },

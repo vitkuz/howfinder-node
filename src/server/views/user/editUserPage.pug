@@ -4,19 +4,19 @@ block head
 block content
     .container.pt2
         .container
-            h1 Edit Profile
+            h1= pageTitle
             hr
-            .row
-                // left column
-                .col-md-3
-                    .text-center
-                        img.avatar.img-circle(src='//placehold.it/100', alt='avatar')
-                        h6 Upload a different photo...
-                        input.form-control(type='file')
-                // edit form column
-                .col-md-9.personal-info
-                    h3 Required info
-                    form.form-horizontal(role='form', method='POST', action='/user/edit')
+            form.form-horizontal(method='POST', action='/user/edit')
+                .row
+                    .col-md-3
+                        .text-center
+                            img.avatar.img-circle(src=user.photourl, alt='avatar')
+                            h6 Upload a different photo...
+                            input.form-control(type='file', name='photourl')
+                    // edit form column
+                    .col-md-9.personal-info
+                        h3 Required info
+                        hr
                         .form-group
                             label.col-lg-3.control-label Email:
                             .col-lg-8
@@ -25,37 +25,69 @@ block content
                             label.col-md-3.control-label Username:
                             .col-md-8
                                 input.form-control(type='text', name='username', value=user.username)
+                        h3 Change password
+                        hr
+                        .form-group
+                            label.col-md-3.control-label Current password:
+                            .col-md-8
+                                input.form-control(type='password', name='password',  value='')
                         .form-group
                             label.col-md-3.control-label New password:
                             .col-md-8
-                                input.form-control(type='password', name='password',  value=user.password)
+                                input.form-control(type='password', name='newPassword',  value='')
                         .form-group
                             label.col-md-3.control-label Confirm password:
                             .col-md-8
-                                input.form-control(type='password', name='password2', value=user.password2)
-                    h3 Personal info
-                    form.form-horizontal(role='form')
+                                input.form-control(type='password', name='confirmPassword', value='')
+                        h3 Personal info
+                        hr
                         .form-group
                             label.col-lg-3.control-label First name:
                             .col-lg-8
-                                input.form-control(type='text', name='firstname', value='Jane')
+                                input.form-control(type='text', name='firstname', value=user.profile.firstname)
                         .form-group
                             label.col-lg-3.control-label Last name:
                             .col-lg-8
-                                input.form-control(type='text', name='lastname', value='Bishop')
-                        .form-group
-                            label.col-lg-3.control-label Company:
-                            .col-lg-8
-                                input.form-control(type='text', name='company', value='')
+                                input.form-control(type='text', name='lastname', value=user.profile.lastname)
                         .form-group
                             label.col-lg-3.control-label Website:
                             .col-lg-8
-                                input.form-control(type='text', name='website', value='')
+                                input.form-control(type='text', name='website', value=user.profile.website)
+                        h3 Linked social accounts
+                            hr
+                        .form-group
+                            label.col-lg-3.control-label Vk:
+                            .col-lg-8
+                                input.form-control(type='text', name='vk', value=user.profile.vk)
+                            .col-lg-4
+                                a(href='#') Attach
+                        .form-group
+                            label.col-lg-3.control-label Facebook:
+                            .col-lg-8
+                                input.form-control(type='text', name='facebook', value=user.profile.facebook)
+                            .col-lg-4
+                                a(href='#') Attach
+                        .form-group
+                            label.col-lg-3.control-label Odnoklassniki:
+                            .col-lg-8
+                                input.form-control(type='text', name='odnoklassniki', value=user.profile.odnoklassniki)
+                            .col-lg-4
+                                a(href='#') Attach
+                        .form-group
+                            label.col-lg-3.control-label Youtube:
+                            .col-lg-8
+                                input.form-control(type='text', name='youtube', value=user.profile.youtube)
+                            .col-lg-4
+                                a(href='#') Attach
+                        .form-group
+                            label.col-lg-3.control-label Twitter:
+                            .col-lg-8
+                                input.form-control(type='text', name='twitter', value=user.profile.twitter)
+                            .col-lg-4
+                                a(href='#') Attach
                         .form-group
                             label.col-md-3.control-label
                             .col-md-8
-                                input.btn.btn-primary(type='button', value='Save Changes')
-                                span
-                                input.btn.btn-default(type='reset', value='Cancel')
-        hr
+                                button.btn.btn-primary(type='submit') Save Changes
+
 block footer

@@ -9,6 +9,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const compression = require('compression');
 const responseTime = require('response-time');
+const flash = require('express-flash');
 const express = require('express');
 
 const loadUser = require('../middlewares/loadUser');
@@ -52,6 +53,8 @@ module.exports = function (app) {
         saveUninitialized: true,
         store: new MongoStore({ url: MONGO_URI })
     }));
+
+    app.use(flash());
 
     app.use(csrf({ cookie: true }));
 

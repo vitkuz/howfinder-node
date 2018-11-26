@@ -9,7 +9,9 @@ block content
             if messages.errors && messages.errors.length > 0
                 each error in messages.errors
                     .error= error
-
+        if (messages.info)
+            .message.info
+                span= messages.info
         form.form-login(method='POST', action='/user/login')
             .form-group
                 label.sr-only(for='inputEmail') Email address

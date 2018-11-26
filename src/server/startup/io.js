@@ -1,6 +1,6 @@
 module.exports = function (io) {
     io.on('connection', (socket) => {
-        console.log('Connected to a client');
+        console.log('io.js, Connected to a client');
 
         socket.on('newLogin', (data) => {
             // console.log(data);
