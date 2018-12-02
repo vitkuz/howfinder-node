@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const uuidv1 = require('uuid/v1');
 
+const jsonUserMenu = require('../settings/userMenu');
+
 module.exports = function loadUser(req, res, next) {
 
     res.locals.csrfToken = req.csrfToken();
@@ -8,6 +10,9 @@ module.exports = function loadUser(req, res, next) {
     res.locals.uuid = req.session.uuid = req.session.uuid || uuidv1();
     res.locals.user = req.session.user = req.session.user || null;
     res.locals.cart = req.session.cart = req.session.cart || { products:[] };
+
+
+    res.locals.userMenu = jsonUserMenu;
 
     next();
 

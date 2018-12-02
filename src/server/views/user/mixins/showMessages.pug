@@ -1,0 +1,29 @@
+mixin showMessages(messages)
+    - var errors = messages.error
+    - var infos = messages.info
+    - var successes = messages.success
+    - var warnings = messages.warning
+    if (errors && errors.length > 0)
+        each error in errors
+            .alert.alert-danger.alert-dismissable
+                a.panel-close.close(data-dismiss='alert') ×
+                i.fa.fa-coffee
+                | #{error}
+    if (infos && infos.length > 0)
+        each info in infos
+            .alert.alert-info.alert-dismissable
+                a.panel-close.close(data-dismiss='alert') ×
+                i.fa.fa-coffee
+                | #{info}
+    if (warnings && warnings.length > 0)
+        each warning in warnings
+            .alert.alert-warning.alert-dismissable
+                a.panel-close.close(data-dismiss='alert') ×
+                i.fa.fa-coffee
+                | #{warning}
+    if (successes && successes.length > 0)
+        each success in successes
+            .alert.alert-success.alert-dismissable
+                a.panel-close.close(data-dismiss='alert') ×
+                i.fa.fa-coffee
+                | #{success}

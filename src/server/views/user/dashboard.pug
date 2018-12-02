@@ -1,5 +1,6 @@
 extends ../global
 
+include ./mixins/showMessages
 
 block head
 
@@ -7,12 +8,11 @@ block content
     .container.pt2
         .row
             .col-md-12
-                if (messages.info)
-                    .message.info
-                        span= messages.info
         .row
             .col-md-12
-                h1 #{title}
+                h1 #{pageTitle}
+                hr
+                +showMessages(messages)
         .row
             .col-md-4
                 include ./partials/userMenu

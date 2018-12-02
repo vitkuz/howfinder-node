@@ -1,18 +1,18 @@
-if messages.errors
+if showMessages.errors
   .alert.alert-danger.fade.in
     button.close(type='button', data-dismiss='alert')
       i.fa.fa-times-circle-o
-    for error in messages.errors
+    for error in showMessages.errors
       div= error.msg
-if messages.info
+if showMessages.info
   .alert.alert-info.fade.in
     button.close(type='button', data-dismiss='alert')
       i.fa.fa-times-circle-o
-    for info in messages.info
+    for info in showMessages.info
       div= info.msg
-if messages.success
+if showMessages.success
   .alert.alert-success.fade.in
     button.close(type='button', data-dismiss='alert')
       i.fa.fa-times-circle-o
-    for success in messages.success
+    for success in showMessages.success
       div= success.msg

@@ -1,18 +1,23 @@
 extends ../global
+
+include ./mixins/showMessages
+
 block head
 
 block content
     .container.pt2
         .container
-            h1= pageTitle
+            h1 #{pageTitle}
             hr
-            form.form-horizontal(method='POST', action='/user/edit')
+            +showMessages(messages)
+            form.form-horizontal(method='POST', action='/user/edit', enctype='multipart/form-data')
                 .row
                     .col-md-3
-                        .text-center
+                        div.form-group
                             img.avatar.img-circle(src=user.photourl, alt='avatar')
-                            h6 Upload a different photo...
-                            input.form-control(type='file', name='photourl')
+                            label.col-lg-3.control-label Photo:
+                            input.form-control(type='file', name='photourl', accept='image/*')
+                        include ./partials/userMenu
                     // edit form column
                     .col-md-9.personal-info
                         h3 Required info
@@ -20,11 +25,11 @@ block content
                         .form-group
                             label.col-lg-3.control-label Email:
                             .col-lg-8
-                                input.form-control(type='text', name='email', value=user.email)
+                                input.form-control(type='text', name='email', value=user.email, disabled=true)
                         .form-group
                             label.col-md-3.control-label Username:
                             .col-md-8
-                                input.form-control(type='text', name='username', value=user.username)
+                                input.form-control(type='text', name='username', value=user.username, disabled=true)
                         h3 Change password
                         hr
                         .form-group
@@ -44,45 +49,45 @@ block content
                         .form-group
                             label.col-lg-3.control-label First name:
                             .col-lg-8
-                                input.form-control(type='text', name='firstname', value=user.profile.firstname)
+                                input.form-control(type='text', name='firstname', value=(user.profile && user.profile.firstname))
                         .form-group
                             label.col-lg-3.control-label Last name:
                             .col-lg-8
-                                input.form-control(type='text', name='lastname', value=user.profile.lastname)
+                                input.form-control(type='text', name='lastname', value=(user.profile && user.profile.lastname))
                         .form-group
                             label.col-lg-3.control-label Website:
                             .col-lg-8
-                                input.form-control(type='text', name='website', value=user.profile.website)
+                                input.form-control(type='text', name='website', value=(user.profile && user.profile.website))
                         h3 Linked social accounts
                             hr
                         .form-group
                             label.col-lg-3.control-label Vk:
                             .col-lg-8
-                                input.form-control(type='text', name='vk', value=user.profile.vk)
+                                input.form-control(type='text', name='vk', value=(user.profile && user.profile.vk))
                             .col-lg-4
                                 a(href='#') Attach
                         .form-group
                             label.col-lg-3.control-label Facebook:
                             .col-lg-8
-                                input.form-control(type='text', name='facebook', value=user.profile.facebook)
+                                input.form-control(type='text', name='facebook', value=(user.profile && user.profile.facebook))
                             .col-lg-4
                                 a(href='#') Attach
                         .form-group
                             label.col-lg-3.control-label Odnoklassniki:
                             .col-lg-8
-                                input.form-control(type='text', name='odnoklassniki', value=user.profile.odnoklassniki)
+                                input.form-control(type='text', name='odnoklassniki', value=(user.profile && user.profile.odnoklassniki))
                             .col-lg-4
                                 a(href='#') Attach
                         .form-group
                             label.col-lg-3.control-label Youtube:
                             .col-lg-8
-                                input.form-control(type='text', name='youtube', value=user.profile.youtube)
+                                input.form-control(type='text', name='youtube', value=(user.profile && user.profile.youtube))
                             .col-lg-4
                                 a(href='#') Attach
                         .form-group
                             label.col-lg-3.control-label Twitter:
                             .col-lg-8
-                                input.form-control(type='text', name='twitter', value=user.profile.twitter)
+                                input.form-control(type='text', name='twitter', value=(user.profile && user.profile.twitter))
                             .col-lg-4
                                 a(href='#') Attach
                         .form-group

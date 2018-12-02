@@ -15,6 +15,7 @@ const express = require('express');
 const loadUser = require('../middlewares/loadUser');
 const initSession = require('../middlewares/initSession');
 const initLocals = require('../middlewares/initLocals');
+const initLocale = require('../middlewares/initLocale');
 
 const { ENV, PORT, MONGO_URI, EXPRESS_SESSION_SECRET } = require('../../../config/config');
 
@@ -47,6 +48,8 @@ module.exports = function (app) {
 
     app.use(cookieParser());
 
+    app.use(initLocale);
+
     app.use(session({
         secret: EXPRESS_SESSION_SECRET,
         resave: false,
@@ -64,6 +67,6 @@ module.exports = function (app) {
 
     app.use(expressSanitizer());
 
-    // app.use(loadUser);
+    app.use(loadUser);
 
 };

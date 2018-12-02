@@ -7,21 +7,22 @@ const axios = require('axios');
 const ifUserExist = require('../../../utils/ifUserExist');
 const ifUserNotExist = require('../../../utils/ifUserNotExist');
 const verifyUserByEmail = require('../../../utils/verifyUserByEmail');
+const flashMessages = require('../../../utils/flashMessages');
 
 const { api, AUTH_API_KEY } = require('../../../../../config/config');
 
 
 router.get('/user/login', async (req,res,next) => {
 
-    req.flash('info', 'Welcome');
+    req.flash('info', 'info');
+    req.flash('warning', "warning");
+    req.flash('error', "error");
+    req.flash('success', "success");
 
 
     res.render('user/loginPage', {
         pageTitle: 'User login page',
         path: '/user/login',
-        messages:{
-            errors:[]
-        }
     });
 });
 
@@ -42,22 +43,24 @@ router.post('/user/login', async (req,res,next) => {
             }
             req.session.user = user;
 
+            flashMessages(req, messages);
             req.flash('info', 'Seems like login');
 
             res.redirect('/user/dashboard')
         }
 
     } catch(e) {
-        const { error } = e.response.data;
+        let { error } = e.response.data;
+        if (!error) {
+            error = e.message;
+        }
+
+        console.log(error);
+        req.flash('error', error);
 
         res.render('user/loginPage', {
             pageTitle: 'User login page',
-            path: '/user/login',
-            messages: {
-                errors: [
-                    error
-                ]
-            }
+            path: '/user/login'
         });
         // console.log('userRouter.js',e);
     }
@@ -65,6 +68,12 @@ router.post('/user/login', async (req,res,next) => {
 });
 
 router.get('/user/register', async (req,res,next) => {
+
+    req.flash('info', 'info');
+    req.flash('warning', "warning");
+    req.flash('error', "error");
+    req.flash('success', "success");
+
     res.render('user/registerPage', {
         pageTitle: 'User register page',
         path: '/user/register',
@@ -83,48 +92,64 @@ router.post('/user/register', async (req,res,next) => {
                 'Content-Type': 'application/json',
             }
         });
-        const { user, messages } = response.data;
+        const { user, messages, meta } = response.data;
+
+        flashMessages(req, messages);
+        console.log(user, messages, meta);
+
         if (user) {
             console.log('registrated user',user);
             res.redirect('/user/login')
         }
     } catch(e) {
 
-        const { error } = e.response.data;
+        let { error } = e.response.data;
+        if (!error) {
+            error = e.messages
+        }
+        req.flash('error', error);
 
-        console.log('error:userRouter.js',error);
+        console.log('/user/register',error);
 
         res.render('user/registerPage', {
             pageTitle: 'User register page',
             path: '/user/register',
-            messages: {
-                errors: [
-                    error
-                ]
-            }
         });
     }
 });
 
 router.get('/user/verify/:activationToken', async (req,res,next) => {
     const activationToken = req.params.activationToken = req.sanitize(req.params.activationToken);
-    const URL = api.users.verify+`?apiKey=${AUTH_API_KEY}`;
+    const URL = `${api.users.verify}?apiKey=${AUTH_API_KEY}`;
 
     try {
-        const response = await axios.post(URL, { activationToken }, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-        const { user, messages } = response.data;
+        const response = await axios.post(URL, { activationToken });
+        const { user, messages, meta } = response.data;
+
+        flashMessages(req, messages);
+        console.log(user, messages, meta);
+
         if (user) {
             console.log('user verified',user);
-            res.redirect('/user/login')
+
+            res.render('user/activationSuccess', {
+                pageTitle: 'activationSuccess',
+                path: '/user/verify/success',
+            });
         }
     } catch(e) {
-        const { error } = e.response.data;
+        let { error } = e.response.data;
+        if (!error) {
+            error = e.messages
+        }
+
+        req.flash(error);
         console.log(error);
-        res.redirect('/user/login')
+
+        res.render('user/activationFail', {
+            pageTitle: 'activationFail',
+            path: '/user/verify/fail',
+        });
     }
 });
 
@@ -139,16 +164,26 @@ router.get('/user/edit', ifUserNotExist.redirectToLogin, async (req, res, next) 
 
     try {
         const response = await axios.get(URL);
-        const { user, messages } = response.data;
+        const { user, messages, meta } = response.data;
+
+        flashMessages(req, messages);
+        console.log(user, messages, meta);
 
         res.render('user/editUserPage', {
-            pageTitle: 'user/edit',
+            pageTitle: 'Edit user',
             path: '/user/dashboard',
             user: user
         });
 
     } catch (e) {
-        const { error } = e.response.data;
+        let { error } = e.response.data;
+        if (!error) {
+            error = e.messages
+        }
+
+        req.flash(error);
+        console.log(error);
+
         next(error);
     }
 });
@@ -156,6 +191,7 @@ router.get('/user/edit', ifUserNotExist.redirectToLogin, async (req, res, next) 
 router.post('/user/edit', ifUserNotExist.redirectToLogin, async (req, res, next) => {
 
     const user = req.session.user;
+    const URL = api.users.update.replace('{{userId}}', user._id)+`?apiKey=${AUTH_API_KEY}`;
 
     // const _id = req.body._id = req.sanitize(req.body._id);
     const username = req.body.username = req.sanitize(req.body.username);
@@ -169,6 +205,14 @@ router.post('/user/edit', ifUserNotExist.redirectToLogin, async (req, res, next)
     const newPassword = req.body.newPassword = req.sanitize(req.body.newPassword);
     const confirmPassword = req.body.confirmPassword = req.sanitize(req.body.confirmPassword);
 
+    const vk = req.body.vk = req.sanitize(req.body.vk);
+    const facebook = req.body.facebook = req.sanitize(req.body.facebook);
+    const google = req.body.google = req.sanitize(req.body.google);
+    const odnoklassniki = req.body.odnoklassniki = req.sanitize(req.body.odnoklassniki);
+    const twitter = req.body.twitter = req.sanitize(req.body.twitter);
+    const youtube = req.body.youtube = req.sanitize(req.body.youtube);
+    const instagram = req.body.instagram = req.sanitize(req.body.instagram);
+
     const updatedUser = {
         username,
         email,
@@ -176,22 +220,26 @@ router.post('/user/edit', ifUserNotExist.redirectToLogin, async (req, res, next)
             firstname,
             lastname,
             website,
+            vk,
+            facebook,
+            google,
+            odnoklassniki,
+            twitter,
+            youtube,
+            instagram
         },
         password,
         newPassword
     };
 
-    const URL = api.users.update.replace('{{userId}}', user._id)+`?apiKey=${AUTH_API_KEY}`;
+
 
     try {
-        const response = await axios.put(URL, updatedUser, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-        const { data: user } = response;
+        const response = await axios.put(URL, updatedUser);
+        const { user, messages, meta } = response.data;
 
-        console.log(user);
+        flashMessages(req, messages);
+        console.log(user, messages, meta);
 
         res.render('user/editUserPage', {
             pageTitle: 'user/edit',
@@ -200,8 +248,14 @@ router.post('/user/edit', ifUserNotExist.redirectToLogin, async (req, res, next)
         });
 
     } catch (e) {
-        const { error } = e.response.data;
-        console.log(user);
+        let { error } = e.response.data;
+        if (!error) {
+            error = e.messages
+        }
+
+        req.flash(error);
+        console.log(error);
+
         res.redirect('/user/edit');
     }
 });

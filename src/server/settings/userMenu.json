@@ -1,0 +1,37 @@
+[
+  {
+    "text": "Dashboard/Profile",
+    "href": "/user/dashboard",
+    "roles": ["member"]
+  },
+  {
+    "text": "Favorites",
+    "href": "/user/favorites",
+    "roles": ["member"]
+  },
+  {
+    "text": "Messages",
+    "href": "/user/messages",
+    "roles": ["member"]
+  },
+  {
+    "text": "History",
+    "href": "/user/history",
+    "roles": ["member"]
+  },
+  {
+    "text": "Products",
+    "href": "/user/messages",
+    "roles": ["member"]
+  },
+  {
+    "text": "Settings",
+    "href": "/user/settings",
+    "roles": ["member"]
+  },
+  {
+    "text": "Logout",
+    "href": "/user/logout",
+    "roles": ["member"]
+  }
+]
