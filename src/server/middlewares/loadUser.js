@@ -1,18 +1,30 @@
 const jwt = require('jsonwebtoken');
 const uuidv1 = require('uuid/v1');
 
-const jsonUserMenu = require('../settings/userMenu');
+const notLoginUserMenu = require('../settings/notLoginUserMenu');
+const isLoginUserMenu = require('../settings/isLoginUserMenu');
+const userActionsMenu = require('../settings/userActionsMenu');
+const websites = require('../settings/websites');
 
 module.exports = function loadUser(req, res, next) {
 
     res.locals.csrfToken = req.csrfToken();
 
     res.locals.uuid = req.session.uuid = req.session.uuid || uuidv1();
-    res.locals.user = req.session.user = req.session.user || null;
+    req.user = res.locals.user = req.session.user = req.session.user || (req.session.passport && req.session.passport.user) || null;
     res.locals.cart = req.session.cart = req.session.cart || { products:[] };
 
+    if (res.locals.user) {
+        res.locals.userMenu = isLoginUserMenu;
+        res.locals.userActions = userActionsMenu;
+    } else {
+        res.locals.userMenu = notLoginUserMenu;
+        res.locals.userActions = null;
+    }
 
-    res.locals.userMenu = jsonUserMenu;
+    res.locals.websites = websites;
+
+    // console.log(req.session);
 
     next();
 

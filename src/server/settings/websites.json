@@ -1,0 +1,34 @@
+[
+  {
+    "text": "🛠️ Инструменты",
+    "href": "/tools",
+    "roles": ["member"]
+  },
+  {
+    "text": "📚 Книги",
+    "href": "/books",
+    "roles": ["member"]
+  },
+  {
+    "text": "💡 Цитаты",
+    "href": "/quotes",
+    "roles": ["member"]
+  },
+  {
+    "text": "💎Притчи",
+    "href": "/stories",
+    "roles": ["member"]
+  },
+  {
+    "text": "Идеи",
+    "href": "/user/ideas",
+    "hidden":true,
+    "roles": ["member"]
+  },
+  {
+    "text": "Продукты",
+    "href": "/products",
+    "hidden":true,
+    "roles": ["member"]
+  }
+]

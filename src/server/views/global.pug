@@ -9,7 +9,14 @@ html(lang='ru')
         +headMetatags()
         block head
     body(class=bodyClasses)
+
         input(type='hidden', class='csrf-token', value='1111')
+        .alert.alert-danger.alert-dismissable
+            a.panel-close.close(data-dismiss='alert') ×
+            i.fa.fa-coffee
+            |           This is an
+            strong .alert
+            | . Use this to show important messages to the user.
         +navbar(user)
         +navScroller()
         .alert.alert-info.alert-dismissable

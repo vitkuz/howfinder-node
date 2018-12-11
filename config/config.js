@@ -1,7 +1,7 @@
 const path = require('path');
 
-const usersApiHost = 'https://vast-brook-68803.herokuapp.com';
-// const usersApiHost = 'http://localhost:3000';
+// const usersApiHost = 'https://vast-brook-68803.herokuapp.com';
+const usersApiHost = 'http://localhost:3000';
 
 const staticPath = path.join(__dirname,'..','public');
 const viewsPath = path.join(__dirname,'..','src','server','views');
@@ -17,11 +17,16 @@ const config  = {
         AUTH_API_KEY: process.env.AUTH_API_KEY,
         VERIFY_USERS: process.env.VERIFY_USERS,
         JWT_SECRET: process.env.JWT_SECRET,
+        FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+        FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET,
+        GOOGLE_APP_ID: process.env.GOOGLE_APP_ID,
+        GOOGLE_APP_SECRET: process.env.GOOGLE_APP_SECRET,
         staticPath,
         viewsPath,
         api: {
             users: {
                 login: usersApiHost + '/api/v1/user/login',
+                loginSocial: usersApiHost + '/api/v1/user/login/social',
                 register: usersApiHost + '/api/v1/user/register',
                 sendPassword: usersApiHost + '/api/v1/user/send/password',
                 resetPassword: usersApiHost + '/api/v1/user/reset/password',

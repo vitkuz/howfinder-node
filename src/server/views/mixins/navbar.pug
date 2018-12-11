@@ -1,37 +1,59 @@
 mixin navbar(user)
-    nav.navbar.navbar-expand-lg.fixed-top.navbar-dark.bg-dark
-        if (user)
-            a.navbar-brand.mr-auto.mr-lg-0(href='#') #{user._id}
-        else
-            a.navbar-brand.mr-auto.mr-lg-0(href='#') HOWFINDER
-        button.navbar-toggler.p-0.border-0(type='button', data-toggle='offcanvas')
-            span.navbar-toggler-icon
-        #navbarsExampleDefault.navbar-collapse.offcanvas-collapse
-            ul.navbar-nav.mr-auto
-                li.nav-item.active
-                    a.nav-link(href='#')
-                        | Dashboard
-                        span.sr-only (current)
-                li.nav-item
-                    a.nav-link(href='#') Notifications
-                li.nav-item
-                    a.nav-link(href='#') Profile
-                li.nav-item
-                    a.nav-link(href='#') Switch account
-                li.nav-item.dropdown
-                    a#dropdown01.nav-link.dropdown-toggle(href='https://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') User pages
-                    .dropdown-menu(aria-labelledby='dropdown01')
-                        a.dropdown-item(href='/user') /user
-                        a.dropdown-item(href='/user/edit') /user/edit
-                        a.dropdown-item(href='/user/password/reset') /user/password/reset
-                        a.dropdown-item(href='/user/password') /user/password
-                        a.dropdown-item(href='/user/register') /user/register
-                        a.dropdown-item(href='/user/login') /user/login
-                        a.dropdown-item(href='/user/favorites') /user/favorites
-                        a.dropdown-item(href='/user/messages') /user/messages
-                        a.dropdown-item(href='/user/history') /user/history
-                        a.dropdown-item(href='/user/products') /user/products
-                        a.dropdown-item(href='/user/dashboard') /user/dashboard
-            form.form-inline.my-2.my-lg-0
-                input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
-                button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+    .container-fluid
+        header.py-1
+            .row.flex-nowrap.justify-content-between.align-items-center
+                .col-2.pt-1
+                    a.header-logo.text-dark(href='/') HOWFINDER
+                .col-8.text-center
+                    nav.nav.d-flex.justify-content-center
+                        if (websites)
+                            each link in websites
+                                if !link.hidden
+                                    a.p-2.text-muted(href=link.href)= link.text
+                .col-2.d-flex.justify-content-end.align-items-center
+                    a.text-muted(href='#')
+                        svg.mx-3(xmlns='http://www.w3.org/2000/svg', width='20', height='20', viewBox='0 0 24 24', fill='none', stroke='currentColor', stroke-width='2', stroke-linecap='round', stroke-linejoin='round')
+                            circle(cx='10.5', cy='10.5', r='7.5')
+                            line(x1='21', y1='21', x2='15.8', y2='15.8')
+                    if (userMenu)
+                        each link in userMenu
+                            a.btn.btn-sm.btn-outline-secondary(href=link.href)= link.text
+
+
+
+    //nav.navbar.navbar-expand-lg.fixed-top.navbar-dark.bg-dark
+    //    if (user)
+    //        a.navbar-brand.mr-auto.mr-lg-0(href='#') #{user._id}
+    //    else
+    //        a.navbar-brand.mr-auto.mr-lg-0(href='#') HOWFINDER
+    //    button.navbar-toggler.p-0.border-0(type='button', data-toggle='offcanvas')
+    //        span.navbar-toggler-icon
+    //    #navbarsExampleDefault.navbar-collapse.offcanvas-collapse
+    //        ul.navbar-nav.mr-auto
+    //            li.nav-item.active
+    //                a.nav-link(href='#')
+    //                    | Dashboard
+    //                    span.sr-only (current)
+    //            li.nav-item
+    //                a.nav-link(href='#') Notifications
+    //            li.nav-item
+    //                a.nav-link(href='#') Profile
+    //            li.nav-item
+    //                a.nav-link(href='#') Switch account
+    //            li.nav-item.dropdown
+    //                a#dropdown01.nav-link.dropdown-toggle(href='https://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') User pages
+    //                .dropdown-menu(aria-labelledby='dropdown01')
+    //                    a.dropdown-item(href='/user') /user
+    //                    a.dropdown-item(href='/user/edit') /user/edit
+    //                    a.dropdown-item(href='/user/password/reset') /user/password/reset
+    //                    a.dropdown-item(href='/user/password') /user/password
+    //                    a.dropdown-item(href='/user/register') /user/register
+    //                    a.dropdown-item(href='/user/login') /user/login
+    //                    a.dropdown-item(href='/user/favorites') /user/favorites
+    //                    a.dropdown-item(href='/user/messages') /user/messages
+    //                    a.dropdown-item(href='/user/history') /user/history
+    //                    a.dropdown-item(href='/user/products') /user/products
+    //                    a.dropdown-item(href='/user/dashboard') /user/dashboard
+    //        form.form-inline.my-2.my-lg-0
+    //            input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
+    //            button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search

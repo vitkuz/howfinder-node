@@ -1,0 +1,7 @@
+[
+  {
+    "text": "Logout",
+    "href": "/user/logout",
+    "roles": ["member"]
+  }
+]

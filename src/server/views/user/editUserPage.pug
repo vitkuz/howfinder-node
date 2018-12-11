@@ -10,7 +10,7 @@ block content
             h1 #{pageTitle}
             hr
             +showMessages(messages)
-            form.form-horizontal(method='POST', action='/user/edit', enctype='multipart/form-data')
+            form.form-horizontal(method='post', action='/user/edit')
                 .row
                     .col-md-3
                         div.form-group
@@ -63,31 +63,37 @@ block content
                         .form-group
                             label.col-lg-3.control-label Vk:
                             .col-lg-8
-                                input.form-control(type='text', name='vk', value=(user.profile && user.profile.vk))
+                                input.form-control(type='text', name='vk', disabled=true, value=(user.profile && user.profile.vk))
                             .col-lg-4
                                 a(href='#') Attach
                         .form-group
                             label.col-lg-3.control-label Facebook:
                             .col-lg-8
-                                input.form-control(type='text', name='facebook', value=(user.profile && user.profile.facebook))
+                                input.form-control(type='text', name='facebook', disabled=true, value=(user.profile && user.profile.facebook))
+                            .col-lg-4
+                                a(href='#') Attach
+                        .form-group
+                            label.col-lg-3.control-label Google:
+                            .col-lg-8
+                                input.form-control(type='text', name='google', disabled=true, value=(user.profile && user.profile.google))
                             .col-lg-4
                                 a(href='#') Attach
                         .form-group
                             label.col-lg-3.control-label Odnoklassniki:
                             .col-lg-8
-                                input.form-control(type='text', name='odnoklassniki', value=(user.profile && user.profile.odnoklassniki))
+                                input.form-control(type='text', name='odnoklassniki', disabled=true, value=(user.profile && user.profile.odnoklassniki))
                             .col-lg-4
                                 a(href='#') Attach
                         .form-group
                             label.col-lg-3.control-label Youtube:
                             .col-lg-8
-                                input.form-control(type='text', name='youtube', value=(user.profile && user.profile.youtube))
+                                input.form-control(type='text', name='youtube', disabled=true, value=(user.profile && user.profile.youtube))
                             .col-lg-4
                                 a(href='#') Attach
                         .form-group
                             label.col-lg-3.control-label Twitter:
                             .col-lg-8
-                                input.form-control(type='text', name='twitter', value=(user.profile && user.profile.twitter))
+                                input.form-control(type='text', name='twitter', disabled=true, value=(user.profile && user.profile.twitter))
                             .col-lg-4
                                 a(href='#') Attach
                         .form-group

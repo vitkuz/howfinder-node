@@ -20,6 +20,19 @@ const io = socetIO(server);
 
 require('./startup/io')(io);
 
+process.on('uncaughtException', (ex) => {
+    console.log('WE GOT AN UNCAUGHT EXCEPTION');
+    console.log(ex.message, ex);
+    // application specific logging, throwing an error, or other logic here
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, p) => {
+    console.log('Unhandled Rejection at:', p, 'reason:', reason);
+    // application specific logging, throwing an error, or other logic here
+    process.exit(1);
+});
+
 server.listen(PORT, (err) => {
     if (err) throw err;
     console.log(`Running on ${PORT}. Environment ${ENV}`);
